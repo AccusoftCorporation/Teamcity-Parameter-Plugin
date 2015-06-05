@@ -3,5 +3,5 @@
 <!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springframework.org/dtd/spring-beans.dtd">
 
 <beans default-autowire="constructor">
-    <bean class="com.accusoft.teamcity.parameterFinder.AppAgent"></bean>
+    <bean class="com.accusoft.teamcity.parameterFinder.ParameterFactory"></bean>
 </beans>
