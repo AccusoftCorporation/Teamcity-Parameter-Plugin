@@ -1,5 +1,6 @@
 package com.accusoft.teamcity.parameterFinder;
 
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 public class ParameterFactory
@@ -8,6 +9,20 @@ public class ParameterFactory
 
     }
     public static void main(String[] args) {
+
+        PrintWriter w = null;
+        System.err.println("ASKDJNASKJASNDKJASNSAJNJDNASADSNKJSANSJKADSN");
+        try {
+            w = new PrintWriter("C:\\Users\\mjones\\Desktop\\file.txt", "UTF-8");
+            w.println("hi");
+        }
+        catch (Exception e) {
+            w.println(e.getStackTrace());
+        }
+        finally {
+            w.close();
+        }
+
         ArrayList<String> regexes = new ArrayList<String>();
 /*
         regexes.clear();
