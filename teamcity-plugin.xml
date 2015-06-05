@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<teamcity-plugin xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:shemas-jetbrains-com:teamcity-plugin-v1-xml">
+  <info>
+    <name>parameterFinder</name>
+    <display-name>parameterFinder</display-name>
+    <version>@Version@</version>
+    <description>Finds versions of tools on build agents</description>
+    <vendor>
+      <name>Matt</name>
+    </vendor>
+  </info>
+  <deployment use-separate-classloader="true" />
+</teamcity-plugin>
