@@ -4,4 +4,5 @@
 
 <beans default-autowire="constructor">
     <bean class="com.accusoft.teamcity.parameterFinder.ParameterFactory"></bean>
+    <bean class="com.accusoft.teamcity.parameterFinder.ParameterFinder"></bean>
 </beans>
