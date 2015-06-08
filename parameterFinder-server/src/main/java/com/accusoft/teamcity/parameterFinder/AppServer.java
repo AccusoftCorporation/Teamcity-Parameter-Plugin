@@ -12,7 +12,7 @@ public class AppServer extends BaseController {
     private PluginDescriptor myDescriptor;
 
     public AppServer (WebControllerManager manager, PluginDescriptor descriptor) {
-        manager.registerController("/demoPlugin.html",this);
+        manager.registerController("/parameterFinder.html",this);
         myDescriptor=descriptor;
         MyCustomTab tab = new MyCustomTab(manager, descriptor);
         tab.register();
