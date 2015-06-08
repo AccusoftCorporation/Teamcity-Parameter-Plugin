@@ -9,17 +9,17 @@ import java.util.regex.Pattern;
 
 public class ParameterFinder {
     ArrayList<String> search = new ArrayList<String>();
-    String file_Separator = "";
+    String file_Separator = null;
     AppAgent a = null;
+    String tool = null;
+    String fileFound = "";
 
     public ParameterFinder(String tool, ArrayList<String> regexes, String s, String command, String file, AppAgent a) {
         this.a = a;
-        if (System.getProperty("os.name").contains("Windows")) {
-            file_Separator = "\\";
-        } else {
-            file_Separator = "/";
-        }
-        a.buildLogString("\n\n\t\tTOOL: " + tool + "\n");
+        this.tool = tool;
+        this.file_Separator = File.separator;
+
+        a.buildLogString("\n\t\tTOOL: " + tool + "\n");
         findSearches(s);
         logSearches();
         searchForTool(search, file, command, regexes);
@@ -38,7 +38,7 @@ public class ParameterFinder {
         for (String filename : filesToRun) {
             File file = new File(filename);
             if (command != null) {
-                runCommand(file.getPath(), command, regex);
+                runCommand(file, command, regex);
             }
             else {
                 try {
@@ -47,6 +47,7 @@ public class ParameterFinder {
                     while (in.hasNext()) {
                         output.append(in.next());
                     }
+                    fileFound = file.getParent();
                     performRegex(regex, output);
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
@@ -54,13 +55,14 @@ public class ParameterFinder {
             }
         }
     }
-    private void runCommand(String file, String command, ArrayList<String> regex){
+    private void runCommand(File file, String command, ArrayList<String> regex){
         try {
             String s;
+            fileFound = file.getParent();
             StringBuilder output = new StringBuilder();
 
             List<String> commands = new ArrayList<String>();
-            commands.add(file);
+            commands.add(file.getPath());
             commands.add(command);
             ProcessBuilder pb = new ProcessBuilder(commands);
             pb.redirectErrorStream(true);
@@ -86,6 +88,8 @@ public class ParameterFinder {
             Matcher m = p.matcher(output.toString());
             if (m.find()) {
                 a.buildLogString("\t\tVersion: " + m.group(1) + "\n");
+                a.values.put(tool + m.group(1), m.group(1));
+                a.values.put(tool + m.group(1) + "_Path", fileFound);
             }
         }
     }

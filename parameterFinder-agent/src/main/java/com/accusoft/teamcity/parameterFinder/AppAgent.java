@@ -9,10 +9,7 @@ import jetbrains.buildServer.util.EventDispatcher;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.Dictionary;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class AppAgent extends AgentLifeCycleAdapter {
     private StringBuilder s = null;
@@ -54,7 +51,17 @@ public class AppAgent extends AgentLifeCycleAdapter {
             new ParameterFinder("Python", regexes, "/usr/share/python", "-i", "pyversions.py", this);
         }
         log(s);
-        conf.addEnvironmentVariable("Python", "3.4.3");
+        createAgentParameters(conf);
+    }
+    private void createAgentParameters(BuildAgentConfiguration conf) {
+        Iterator it = values.entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry pair = (Map.Entry)it.next();
+
+            conf.addEnvironmentVariable(pair.getKey().toString(), pair.getValue().toString());
+
+            it.remove();
+        }
     }
     public void log(StringBuilder s) {
         Loggers.AGENT.info(s.toString());

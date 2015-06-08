@@ -1,8 +1,7 @@
 package com.accusoft.teamcity.parameterFinder;
 
 import jetbrains.buildServer.controllers.BaseController;
-import jetbrains.buildServer.web.openapi.PluginDescriptor;
-import jetbrains.buildServer.web.openapi.WebControllerManager;
+import jetbrains.buildServer.web.openapi.*;
 import org.jetbrains.annotations.Nullable;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -13,8 +12,9 @@ public class AppServer extends BaseController {
     private PluginDescriptor myDescriptor;
 
     public AppServer (WebControllerManager manager, PluginDescriptor descriptor) {
-        manager.registerController("/demoPlugin.html",this);
         myDescriptor=descriptor;
+        MyCustomTab tab = new MyCustomTab(manager, descriptor);
+        tab.register();
     }
 
     @Nullable
