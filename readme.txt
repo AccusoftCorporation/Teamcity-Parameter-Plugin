@@ -1,13 +1,17 @@
+Accusoft Teamcity Plugin
 
- TeamCity plugin
+This plug-in's purpose is to search for user defined tools and make agent parameters for them.
+For example, if you want to know which versions of Maven you have on a build machine,
+you might specify the following parameters for the plugin:
 
- This is an empty project to develop TeamCity plugin.
+tool: Maven
+regex: "Maven ([\\d\\.]+)"
+location: "C:\\Program Files\\Maven"
+file: "mvn.cmd"
+command: "-version"
 
- 1. Implement
- This project contains 3 modules: '<artifactId>-server', '<artifactId>-agent' and '<artifactId>-common'. They will contain code for server and agent parts of your plugin and a common part, available for both (agent and server). When implementing components for server and agent parts, do not forget to update spring context files under 'main/resources/META-INF'. Otherwise your compoment may be not loaded. See TeamCity documentation for details on plugin development.
-
- 2. Build
- Issue 'mvn package' command from the root project to build your plugin. Resulting package <artifactId>.zip will be placed in 'target' directory. 
- 
- 3. Install
- To install the plugin, put zip archive to 'plugins' dir under TeamCity data directory. If you only changed agent-side code of your plugin, the upgrade will be perfomed 'on the fly' (agents will upgrade when idle). If common or server-side code has changed, restart the server.
+The tool is the name of the tool, the regex is the regular expression to extract the
+version number from the command output, the location is the base dir to search, for example,
+if you specify "C:\\Program Files\\Java", the plug-in will recursively search all
+subdirectories for multiple versions of Java. The file is the name of the file to search for,
+the command is the command to run to find the version number.
