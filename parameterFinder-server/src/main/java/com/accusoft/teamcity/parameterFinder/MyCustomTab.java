@@ -13,7 +13,7 @@ public class MyCustomTab extends AdminPage {
     public MyCustomTab(@NotNull PagePlaces pagePlaces, @NotNull PluginDescriptor descriptor) {
         super(pagePlaces);
         setPluginName("parameterFinder");
-        setIncludeUrl(descriptor.getPluginResourcesPath("../../resources/buildServerResources/Hello.jsp"));
+        setIncludeUrl(descriptor.getPluginResourcesPath("Hello.jsp"));
         setTabTitle("Parameter Finder");
         setPosition(PositionConstraint.after("clouds", "email", "jabber"));
         register();
