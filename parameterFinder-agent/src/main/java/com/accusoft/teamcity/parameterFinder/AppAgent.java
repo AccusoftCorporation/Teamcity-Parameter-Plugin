@@ -1,40 +1,46 @@
 package com.accusoft.teamcity.parameterFinder;
 
 import jetbrains.buildServer.agent.AgentLifeCycleAdapter;
+import jetbrains.buildServer.agent.AgentLifeCycleListener;
+import jetbrains.buildServer.agent.BuildAgent;
+import jetbrains.buildServer.log.Loggers;
+import jetbrains.buildServer.util.EventDispatcher;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.PrintWriter;
 import java.util.ArrayList;
 
 public class AppAgent extends AgentLifeCycleAdapter {
-    public AppAgent() {
-
+    StringBuilder s = null;
+    public AppAgent(@NotNull EventDispatcher<AgentLifeCycleListener> dispatcher) {
+        s = new StringBuilder();
+        dispatcher.addListener(this);
     }
+
+    @Override
+    public void agentInitialized(@NotNull final BuildAgent agent) {
+    }
+
     public void pluginsLoaded () {
-
-        PrintWriter w = null;
-        try {
-            w = new PrintWriter("C:\\Users\\mjones\\Desktop\\file.txt", "UTF-8");
-            w.println("HELLO");
-        }
-        catch (Exception e) {
-            w.println(e.getStackTrace());
-        }
-        finally {
-            w.close();
-        }
-
         ArrayList<String> regexes = new ArrayList<String>();
 
         if (System.getProperty("os.name").contains("Windows")) {
             regexes.clear();
             regexes.add("Python ([\\d\\.]+)");
-            new ParameterFinder(regexes, "C:\\Python", "-V", "python.exe");
+            new ParameterFinder("Python", regexes, "C:\\Python", "-V", "python.exe", this);
         }
         else {
             regexes.clear();
             regexes.add("python([\\d\\.]+)");
-            new ParameterFinder(regexes, "/usr/share/python", "-i", "pyversions.py");
+            new ParameterFinder("Python", regexes, "/usr/share/python", "-i", "pyversions.py", this);
         }
+        log(s);
+    }
+    public void log(StringBuilder s) {
+        Loggers.AGENT.info(s.toString());
+    }
+    public void buildLogString(String s) {
+        this.s.append(s);
     }
 
 }

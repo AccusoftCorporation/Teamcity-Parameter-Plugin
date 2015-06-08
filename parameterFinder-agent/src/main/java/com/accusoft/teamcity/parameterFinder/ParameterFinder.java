@@ -10,15 +10,24 @@ import java.util.regex.Pattern;
 public class ParameterFinder {
     ArrayList<String> search = new ArrayList<String>();
     String file_Separator = "";
+    AppAgent a = null;
 
-    public ParameterFinder(ArrayList<String> regexes, String s, String command, String file) {
+    public ParameterFinder(String tool, ArrayList<String> regexes, String s, String command, String file, AppAgent a) {
+        this.a = a;
         if (System.getProperty("os.name").contains("Windows")) {
             file_Separator = "\\";
         } else {
             file_Separator = "/";
         }
+        a.buildLogString("\n\t\tTOOL: " + tool + " Versions\n");
         findSearches(s);
+        logSearches();
         searchForTool(search, file, command, regexes);
+    }
+    private void logSearches() {
+        for (String s : search) {
+            a.buildLogString("\t\tSearch location: " + s + "\n");
+        }
     }
     protected void searchForTool(ArrayList<String> location, String f, String command, ArrayList<String> regex) {
         ArrayList<String> filesToRun = new ArrayList<String>();
@@ -61,13 +70,14 @@ public class ParameterFinder {
             while ((s = stdInput.readLine()) != null) {
                 output.append(s);
             }
+            a.buildLogString("\t\tCommand output: " + output + "\n");
             performRegex(regex, output);
         }
         catch (IOException e) {
-            System.out.println(e);
+            a.buildLogString(e.getMessage());
         }
         catch (Exception e) {
-            System.out.println(e);
+            a.buildLogString(e.getMessage());
         }
     }
     private void performRegex(ArrayList<String> regexes, StringBuilder output) {
@@ -75,18 +85,7 @@ public class ParameterFinder {
             Pattern p = Pattern.compile(regex);
             Matcher m = p.matcher(output.toString());
             if (m.find()) {
-                System.out.println(m.group(1));
-                PrintWriter w = null;
-                try {
-                    w = new PrintWriter("C:\\Users\\mjones\\Desktop\\file.txt", "UTF-8");
-                    w.println(m.group(1));
-                }
-                catch (Exception e) {
-                    w.println(e.getStackTrace());
-                }
-                finally {
-                    w.close();
-                }
+                a.buildLogString("\t\tVersion: " + m.group(1) + "\n");
             }
         }
     }

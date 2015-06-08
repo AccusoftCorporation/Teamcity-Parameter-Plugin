@@ -1,7 +1,5 @@
 package com.accusoft.teamcity.parameterFinder;
 
-import java.util.ArrayList;
-
 public class ParameterFactory
 {
     public ParameterFactory() {
@@ -9,8 +7,6 @@ public class ParameterFactory
     }
     public static void main(String[] args) {
 
-        new AppAgent();
-
-
+        //new AppAgent();
     }
 }
