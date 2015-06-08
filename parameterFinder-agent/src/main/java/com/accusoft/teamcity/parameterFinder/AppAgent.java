@@ -3,15 +3,20 @@ package com.accusoft.teamcity.parameterFinder;
 import jetbrains.buildServer.agent.AgentLifeCycleAdapter;
 import jetbrains.buildServer.agent.AgentLifeCycleListener;
 import jetbrains.buildServer.agent.BuildAgent;
+import jetbrains.buildServer.agent.BuildAgentConfiguration;
 import jetbrains.buildServer.log.Loggers;
 import jetbrains.buildServer.util.EventDispatcher;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.Dictionary;
+import java.util.HashMap;
+import java.util.Map;
 
 public class AppAgent extends AgentLifeCycleAdapter {
-    StringBuilder s = null;
+    private StringBuilder s = null;
+    Map<String, String> values = new HashMap<String, String>();
     public AppAgent(@NotNull EventDispatcher<AgentLifeCycleListener> dispatcher) {
         s = new StringBuilder();
         dispatcher.addListener(this);
@@ -19,9 +24,7 @@ public class AppAgent extends AgentLifeCycleAdapter {
 
     @Override
     public void agentInitialized(@NotNull final BuildAgent agent) {
-    }
-
-    public void pluginsLoaded () {
+        BuildAgentConfiguration conf = agent.getConfiguration();
         ArrayList<String> regexes = new ArrayList<String>();
 
         if (System.getProperty("os.name").contains("Windows")) {
@@ -51,6 +54,7 @@ public class AppAgent extends AgentLifeCycleAdapter {
             new ParameterFinder("Python", regexes, "/usr/share/python", "-i", "pyversions.py", this);
         }
         log(s);
+        conf.addEnvironmentVariable("Python", "3.4.3");
     }
     public void log(StringBuilder s) {
         Loggers.AGENT.info(s.toString());
