@@ -19,7 +19,7 @@ public class ParameterFinder {
         } else {
             file_Separator = "/";
         }
-        a.buildLogString("\n\t\tTOOL: " + tool + " Versions\n");
+        a.buildLogString("\n\n\t\tTOOL: " + tool + "\n");
         findSearches(s);
         logSearches();
         searchForTool(search, file, command, regexes);

@@ -28,6 +28,22 @@ public class AppAgent extends AgentLifeCycleAdapter {
             regexes.clear();
             regexes.add("Python ([\\d\\.]+)");
             new ParameterFinder("Python", regexes, "C:\\Python", "-V", "python.exe", this);
+
+            regexes.clear();
+            regexes.add("version ([\\d\\.]+)");
+            new ParameterFinder("Ant", regexes, "C:\\Program Files\\Ant", "-version", "ant.bat", this);
+
+            regexes.clear();
+            regexes.add("Maven ([\\d\\.]+)");
+            new ParameterFinder("Maven", regexes, "C:\\Program Files\\Maven", "-version", "mvn.cmd", this);
+
+            regexes.clear();
+            regexes.add("Gradle ([\\d\\.]+)");
+            new ParameterFinder("Gradle", regexes, "C:\\Program Files\\Gradle", "-version", "gradle.bat", this);
+
+            regexes.clear();
+            regexes.add("([a-z\\d]+)");
+            new ParameterFinder("Android", regexes, "C:\\AndroidSDK", null, "RELEASE.TXT", this);
         }
         else {
             regexes.clear();
