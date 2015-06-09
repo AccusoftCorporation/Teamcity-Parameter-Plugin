@@ -1,0 +1,11 @@
+<parameterList>
+    <parameter>
+        <tool>Python</tool>
+        <file>python.exe</file>
+        <location>C:\\Python</location>
+        <command>-V</command>
+        <regexList>
+            <regex>Python ([\d\.]+)</regex>
+        </regexList>
+    </parameter>
+</parameterList>

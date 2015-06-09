@@ -23,4 +23,5 @@ public class AppServer extends BaseController {
     protected ModelAndView doHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse) throws Exception {
         return new ModelAndView(myDescriptor.getPluginResourcesPath("Hello.jsp"));
     }
+
 }
