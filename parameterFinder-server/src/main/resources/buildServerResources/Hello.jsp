@@ -7,16 +7,16 @@
                 document.getElementById('params').innerHTML += "Tool: <input type='text' name='fld"+tmp+"' >";
                 document.getElementById('params').innerHTML += "<br>";
                 tmp = tmp+1;
-                document.getElementById('params').innerHTML += "&nbsp;&nbsp;Location: <input type='text' name='fld"+tmp+"' >";
+                document.getElementById('params').innerHTML += "Location: <input type='text' name='fld"+tmp+"' >";
                 document.getElementById('params').innerHTML += "<br>";
                 tmp = tmp+1;
-                document.getElementById('params').innerHTML += "&nbsp;&nbsp;File: <input type='text' name='fld"+tmp+"' >";
+                document.getElementById('params').innerHTML += "File: <input type='text' name='fld"+tmp+"' >";
                 document.getElementById('params').innerHTML += "<br>";
                 tmp = tmp+1;
-                document.getElementById('params').innerHTML += "&nbsp;&nbsp;Command: <input type='text' name='fld"+tmp+"' >";
+                document.getElementById('params').innerHTML += "Command: <input type='text' name='fld"+tmp+"' >";
                 document.getElementById('params').innerHTML += "<br>";
                 tmp = tmp+1;
-                document.getElementById('params').innerHTML += "&nbsp;&nbsp;Regex: <input type='text' name='fld"+tmp+"' >";
+                document.getElementById('params').innerHTML += "Regex: <input type='text' name='fld"+tmp+"' >";
                 document.getElementById('params').innerHTML += "<br>";
                 tmp = tmp+1;
                 document.getElementById('params').innerHTML += "<br><br>";
@@ -31,15 +31,18 @@
 
                 for (i=0;i<x.length;i++) {
                     document.getElementById('params').innerHTML += "Tool: <input type='text' name='input'"+i+" value='"+x[i].getElementsByTagName("tool")[0].childNodes[0].nodeValue+"' >";
-                    /*document.getElementById('params').innerHTML += "&nbsp;&nbsp;Path: <input type='text' name='path'"+i+" value='"+x[i].getElementsByTagName("location")[0].childNodes[0].nodeValue"' >";
-                    document.getElementById('params').innerHTML += "&nbsp;&nbsp;File: <input type='text' name='file'"+i+" value='"+x[i].getElementsByTagName("file")[0].childNodes[0].nodeValue"' >";
-                    document.getElementById('params').innerHTML += "&nbsp;&nbsp;Command: <input type='text' name='command'"+i+" value='"+x[i].getElementsByTagName("command")[0].childNodes[0].nodeValue"' >";
+                    document.getElementById('params').innerHTML += "<br>";
+                    document.getElementById('params').innerHTML += "Path: <input type='text' name='path'"+i+" value='"+x[i].getElementsByTagName("location")[0].childNodes[0].nodeValue+"' >";
+                    document.getElementById('params').innerHTML += "<br>";
+                    document.getElementById('params').innerHTML += "File: <input type='text' name='file'"+i+" value='"+x[i].getElementsByTagName("file")[0].childNodes[0].nodeValue+"' >";
+                    document.getElementById('params').innerHTML += "<br>";
+                    document.getElementById('params').innerHTML += "Command: <input type='text' name='command'"+i+" value='"+x[i].getElementsByTagName("command")[0].childNodes[0].nodeValue+"' >";
                     var y = x[i].getElementsByTagName("regexList");
                     for (j=0;j<y.length;j++) {
-                        document.getElementById('params').innerHTML += "&nbsp;&nbsp;Regex: <input type='text' name='regex'"+j+" value='"+x[j].getElementsByTagName("regex")[0].childNodes[0].nodeValue"' >";
                         document.getElementById('params').innerHTML += "<br>";
+                        document.getElementById('params').innerHTML += "Regex: <input type='text' name='regex'"+j+" value='"+x[j].getElementsByTagName("regex")[0].childNodes[0].nodeValue+"' >";
                     }
-                    document.getElementById('params').innerHTML += "<br><br>";*/
+                    document.getElementById('params').innerHTML += "<br><br>";
                 }
             }
             function editParameter() {
