@@ -3,7 +3,7 @@
   <info>
     <name>parameterFinder</name>
     <display-name>parameterFinder</display-name>
-    <version>@Version@</version>
+    <version>1.0.1</version>
     <description>Finds versions of tools on build agents</description>
     <vendor>
       <name>Matt</name>

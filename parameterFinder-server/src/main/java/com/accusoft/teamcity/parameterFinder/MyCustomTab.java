@@ -6,7 +6,6 @@ import jetbrains.buildServer.web.openapi.PagePlaces;
 import jetbrains.buildServer.web.openapi.PluginDescriptor;
 import jetbrains.buildServer.web.openapi.PositionConstraint;
 import org.jetbrains.annotations.NotNull;
-
 import javax.servlet.http.HttpServletRequest;
 
 public class MyCustomTab extends AdminPage {
