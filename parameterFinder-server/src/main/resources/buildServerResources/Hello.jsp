@@ -1,6 +1,7 @@
 <html>
     <head>
         <script language="JavaScript">
+            window.onload = loadParameters;
             function newParameter()
             {
                 tmp = 0;
@@ -23,10 +24,11 @@
             }
             function saveParameter() {
 
+
             }
             function loadParameters()
             {
-                var xmlDoc=loadXMLDoc("/plugins/parameterFinder/parameters.xml");
+                var xmlDoc=loadXMLDoc("http://localhost:85/plugins/parameterFinder/parameters.xml");
                 var x = xmlDoc.getElementsByTagName("parameter");
 
                 for (i=0;i<x.length;i++) {
@@ -37,16 +39,12 @@
                     document.getElementById('params').innerHTML += "File: <input type='text' name='file'"+i+" value='"+x[i].getElementsByTagName("file")[0].childNodes[0].nodeValue+"' >";
                     document.getElementById('params').innerHTML += "<br>";
                     document.getElementById('params').innerHTML += "Command: <input type='text' name='command'"+i+" value='"+x[i].getElementsByTagName("command")[0].childNodes[0].nodeValue+"' >";
-                    var y = x[i].getElementsByTagName("regexList");
-                    for (j=0;j<y.length;j++) {
-                        document.getElementById('params').innerHTML += "<br>";
-                        document.getElementById('params').innerHTML += "Regex: <input type='text' name='regex'"+j+" value='"+x[j].getElementsByTagName("regex")[0].childNodes[0].nodeValue+"' >";
-                    }
+                    document.getElementById('params').innerHTML += "<br>";
+                    document.getElementById('params').innerHTML += "Regex: <input type='text' name='regex'"+i+" value='"+x[i].getElementsByTagName("regex")[0].childNodes[0].nodeValue+"' >";
                     document.getElementById('params').innerHTML += "<br><br>";
                 }
             }
-            function editParameter() {
-            }
+
             function loadXMLDoc(filename)
             {
                 if (window.XMLHttpRequest)
@@ -71,9 +69,9 @@
             <br>
             <form name="form1" method="POST">
                 <input type="button" name="newParameterBtn" value="New Parameter" onclick="newParameter()">
-                <input type="button" name="currentParameters" value="Current Parameters" onclick="loadParameters()">
                 <input type="button" value="Save" name="saveButton" onclick="saveParameter()">
             </form>
+            <br>
         </div>
     </body>
 </html>

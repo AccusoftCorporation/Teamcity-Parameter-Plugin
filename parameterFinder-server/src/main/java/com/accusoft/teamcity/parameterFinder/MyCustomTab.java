@@ -7,6 +7,16 @@ import jetbrains.buildServer.web.openapi.PluginDescriptor;
 import jetbrains.buildServer.web.openapi.PositionConstraint;
 import org.jetbrains.annotations.NotNull;
 import javax.servlet.http.HttpServletRequest;
+import javax.xml.parsers.*;
+import javax.xml.transform.*;
+import javax.xml.transform.dom.*;
+import javax.xml.transform.stream.*;
+import org.xml.sax.*;
+import org.w3c.dom.*;
+
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.ArrayList;
 
 public class MyCustomTab extends AdminPage {
     public MyCustomTab(@NotNull PagePlaces pagePlaces, @NotNull PluginDescriptor descriptor) {

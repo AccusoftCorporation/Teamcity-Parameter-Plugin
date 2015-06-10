@@ -8,11 +8,13 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+
 public class AppServer extends BaseController {
     private PluginDescriptor myDescriptor;
 
     public AppServer (WebControllerManager manager, PluginDescriptor descriptor) {
         manager.registerController("/parameterFinder.html",this);
+        manager.registerController("/plugins/parameterFinder/parameters.xml",this);
         myDescriptor=descriptor;
         MyCustomTab tab = new MyCustomTab(manager, descriptor);
         tab.register();

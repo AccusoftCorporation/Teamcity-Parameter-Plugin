@@ -1,11 +1,37 @@
 <parameterList>
     <parameter>
+        <tool>Maven</tool>
+        <file>mvn.cmd</file>
+        <location>C:\Program Files\Maven</location>
+        <command>-version</command>
+        <regex>Maven ([\d\.]+)</regex>
+    </parameter>
+    <parameter>
         <tool>Python</tool>
         <file>python.exe</file>
-        <location>C:\\Python</location>
+        <location>C:\Python</location>
         <command>-V</command>
-        <regexList>
-            <regex>Python ([\d\.]+)</regex>
-        </regexList>
+        <regex>Python ([\d\.]+)</regex>
+    </parameter>
+    <parameter>
+        <tool>Ant</tool>
+        <file>ant.bat</file>
+        <location>C:\Program Files\Ant</location>
+        <command>-version</command>
+        <regex>version ([\d\.]+)</regex>
+    </parameter>
+    <parameter>
+        <tool>Gradle</tool>
+        <file>gradle.bat</file>
+        <location>C:\Program Files\Gradle</location>
+        <command>-version</command>
+        <regex>Gradle ([\d\.]+)</regex>
+    </parameter>
+    <parameter>
+        <tool>Android</tool>
+        <file>RELEASE.TXT</file>
+        <location>C:\AndroidSDK</location>
+        <command>null</command>
+        <regex>([a-z\d]+)</regex>
     </parameter>
 </parameterList>
