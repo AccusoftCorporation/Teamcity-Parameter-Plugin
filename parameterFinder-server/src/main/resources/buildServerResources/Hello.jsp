@@ -22,13 +22,13 @@
                 tmp = tmp+1;
                 document.getElementById('params').innerHTML += "<br><br>";
             }
-            function saveParameter() {
+            function saveParameters() {
 
 
             }
             function loadParameters()
             {
-                var xmlDoc=loadXMLDoc("http://localhost:85/plugins/parameterFinder/parameters.xml");
+                var xmlDoc=loadXMLDoc("/plugins/parameterFinder/parameters.xml");
                 var x = xmlDoc.getElementsByTagName("parameter");
 
                 for (i=0;i<x.length;i++) {
@@ -69,7 +69,7 @@
             <br>
             <form name="form1" method="POST">
                 <input type="button" name="newParameterBtn" value="New Parameter" onclick="newParameter()">
-                <input type="button" value="Save" name="saveButton" onclick="saveParameter()">
+                <input type="button" value="Save" name="saveButton" onclick="saveParameters()">
             </form>
             <br>
         </div>

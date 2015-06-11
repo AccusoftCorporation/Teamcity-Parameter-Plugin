@@ -13,23 +13,29 @@ public class ParameterFinder {
     AppAgent a = null;
     String tool = null;
     String fileFound = "";
+    String command = null;
+    String file = null;
+    String location = null;
 
-    public ParameterFinder(String tool, ArrayList<String> regexes, String s, String command, String file, AppAgent a) {
+    public ParameterFinder(String tool, String regex, String s, String command, String file, AppAgent a) {
         this.a = a;
         this.tool = tool;
         this.file_Separator = File.separator;
+        this.command = command;
+        this.location = s.replaceAll("[/\\\\]+", Matcher.quoteReplacement(System.getProperty("file.separator")));
+        this.file = file;
 
         a.buildLogString("\n\t\tTOOL: " + tool + "\n");
-        findSearches(s);
+        findSearches(location);
         logSearches();
-        searchForTool(search, file, command, regexes);
+        searchForTool(search, this.file, this.command, regex);
     }
     private void logSearches() {
         for (String s : search) {
             a.buildLogString("\t\tSearch location: " + s + "\n");
         }
     }
-    protected void searchForTool(ArrayList<String> location, String f, String command, ArrayList<String> regex) {
+    protected void searchForTool(ArrayList<String> location, String f, String command, String regex) {
         ArrayList<String> filesToRun = new ArrayList<String>();
         for (String s : location) {
             findFiles(new File(s), f, filesToRun);
@@ -37,7 +43,7 @@ public class ParameterFinder {
 
         for (String filename : filesToRun) {
             File file = new File(filename);
-            if (command != null) {
+            if (command != null && command.compareTo("") != 0 && command.compareTo(" ") != 0 && command.compareTo("null") != 0) {
                 runCommand(file, command, regex);
             }
             else {
@@ -55,7 +61,7 @@ public class ParameterFinder {
             }
         }
     }
-    private void runCommand(File file, String command, ArrayList<String> regex){
+    private void runCommand(File file, String command, String regex){
         try {
             String s;
             fileFound = file.getParent();
@@ -82,16 +88,15 @@ public class ParameterFinder {
             a.buildLogString(e.getMessage());
         }
     }
-    private void performRegex(ArrayList<String> regexes, StringBuilder output) {
-        for (String regex : regexes) {
-            Pattern p = Pattern.compile(regex);
-            Matcher m = p.matcher(output.toString());
-            if (m.find()) {
-                a.buildLogString("\t\tVersion: " + m.group(1) + "\n");
-                a.values.put(tool + m.group(1), m.group(1));
-                a.values.put(tool + m.group(1) + "_Path", fileFound);
-            }
+    private void performRegex(String regex, StringBuilder output) {
+        Pattern p = Pattern.compile(regex);
+        Matcher m = p.matcher(output.toString());
+        if (m.find()) {
+            a.buildLogString("\t\tVersion: " + m.group(1) + "\n");
+            a.values.put(tool + m.group(1), m.group(1));
+            a.values.put(tool + m.group(1) + "_Path", fileFound);
         }
+
     }
     private void findFiles(File current, String f, ArrayList<String> list) {
 
@@ -107,10 +112,12 @@ public class ParameterFinder {
         }
     }
     private void findSearches(String s) {
+
         String directory = s.substring(0, s.lastIndexOf(file_Separator) + 1);
         String value = s.substring(s.lastIndexOf(file_Separator) + 1);
         File f = new File(directory);
         File[] files = f.listFiles();
+
 
         for (int i = 0; i < files.length; i++)
         {
