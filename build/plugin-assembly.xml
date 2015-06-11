@@ -9,7 +9,7 @@
      <file>
          <source>target/teamcity-plugin.xml</source>
          <outputDirectory>/</outputDirectory>
-     </file> 
+     </file>
      <file>
          <source>target/parameterFinder-agent.zip</source>
          <outputDirectory>agent</outputDirectory>
