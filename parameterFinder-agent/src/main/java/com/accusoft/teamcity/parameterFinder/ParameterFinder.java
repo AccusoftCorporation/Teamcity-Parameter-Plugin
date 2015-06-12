@@ -43,26 +43,31 @@ public class ParameterFinder {
     }
     protected void searchForTool(ArrayList<String> location, String f, String command, String regex) {
         ArrayList<String> filesToRun = new ArrayList<String>();
+
         for (String s : location) {
             findFiles(new File(s), f, filesToRun);
         }
 
-        for (String filename : filesToRun) {
-            File file = new File(filename);
-            if (command != null && command.compareTo("") != 0 && command.compareTo(" ") != 0 && command.compareTo("null") != 0) {
-                runCommand(file, command, regex);
-            }
-            else {
-                try {
-                    Scanner in = new Scanner(new FileReader(file));
-                    StringBuilder output = new StringBuilder();
-                    while (in.hasNext()) {
-                        output.append(in.next());
+        if (filesToRun.size() == 0) {
+            a.buildLogString("\t\tCannot find file: " + f + " in search locations\n");
+        }
+        else {
+            for (String filename : filesToRun) {
+                File file = new File(filename);
+                if (command != null && command.compareTo("") != 0 && command.compareTo(" ") != 0 && command.compareTo("null") != 0) {
+                    runCommand(file, command, regex);
+                } else {
+                    try {
+                        Scanner in = new Scanner(new FileReader(file));
+                        StringBuilder output = new StringBuilder();
+                        while (in.hasNext()) {
+                            output.append(in.next());
+                        }
+                        fileFound = file.getParent();
+                        performRegex(regex, output);
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
                     }
-                    fileFound = file.getParent();
-                    performRegex(regex, output);
-                } catch (FileNotFoundException e) {
-                    e.printStackTrace();
                 }
             }
         }
@@ -101,6 +106,9 @@ public class ParameterFinder {
             a.buildLogString("\t\tVersion: " + m.group(1) + "\n");
             a.values.put(tool + m.group(1), m.group(1));
             a.values.put(tool + m.group(1) + "_Path", fileFound);
+        }
+        else {
+            a.buildLogString("\t\tRegex: " + regex + " did not return any results from the command output. Please review the regex.\n");
         }
 
     }
