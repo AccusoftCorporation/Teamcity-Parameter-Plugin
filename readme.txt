@@ -3,7 +3,7 @@ Accusoft Teamcity Plugin
 
 Purpose
 
-  * This plug-in's purpose is to search for user defined tools and make agent parameters for them
+  * This plug-in's purpose is to search for user defined tools and make agent parameters for them.
 
   * For example, if you want to know which versions of Maven you have on a build machine, you might specify the following parameters for the plugin:
 
@@ -21,10 +21,10 @@ Purpose
 
     The file is the name of the file to search for. This value is also to be left blank or "null" if the intention is to run a command only and not search for the files on the file system.
 
-    The command is the command to run to find the version number.
+    The command is the command to run to find the version number. This will be added to the file to make the complete command "mvn.cmd -version" unless the file/location is null in the parameters.xml file.
 
 
-How to edit parameters to search for
+How to edit parameters
 
   * To edit which tools are searched for or edit any of the above parameters, you can edit the parameters.xml file in the location:
 
@@ -32,4 +32,4 @@ How to edit parameters to search for
 
   * You will then need to save the file and update the JAR file (this is done automatically with a tool like 7ZIP).
 
-  * After this file has been modified, you need to restart the build agents that you want to pick up the edited parameters.
+  * After this file has been modified, you need to restart the build agents that you want to pick up the edited parameters and they will create the new parameters automatically.
