@@ -34,4 +34,11 @@
         <command>null</command>
         <regex>([a-z\d]+)</regex>
     </parameter>
+    <parameter>
+        <tool>Python</tool>
+        <file>pyversions.py</file>
+        <location>/usr/share/python</location>
+        <command>-i</command>
+        <regex>python([\d\.]+)</regex>
+    </parameter>
 </parameterList>

@@ -31,6 +31,10 @@ public class ParameterFinder {
 
         if (search.size() > 0)
             searchForTool(search, this.file, this.command, regex);
+        else {
+            this.a.buildLogString("\t\tCannot find tool in location provided: " + location + "\n");
+        }
+
     }
     private void logSearches() {
         for (String s : search) {
