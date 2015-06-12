@@ -25,10 +25,12 @@ public class ParameterFinder {
         this.location = s.replaceAll("[/\\\\]+", Matcher.quoteReplacement(System.getProperty("file.separator")));
         this.file = file;
 
-        a.buildLogString("\n\t\tTOOL: " + tool + "\n");
+        this.a.buildLogString("\n\t\tTOOL: " + tool + "\n");
         findSearches(location);
         logSearches();
-        searchForTool(search, this.file, this.command, regex);
+
+        if (search.size() > 0)
+            searchForTool(search, this.file, this.command, regex);
     }
     private void logSearches() {
         for (String s : search) {
@@ -116,19 +118,20 @@ public class ParameterFinder {
         String directory = s.substring(0, s.lastIndexOf(file_Separator) + 1);
         String value = s.substring(s.lastIndexOf(file_Separator) + 1);
         File f = new File(directory);
-        File[] files = f.listFiles();
+        if (f.exists()) {
+            File[] files = f.listFiles();
 
+            for (int i = 0; i < files.length; i++) {
+                String val = "";
+                String path = files[i].getPath();
 
-        for (int i = 0; i < files.length; i++)
-        {
-            String val = "";
-            String path = files[i].getPath();
-            if (path.contains(value)) {
-                String end = path.substring(path.lastIndexOf(file_Separator) + 1);
-                for (int j = 0; j < end.length(); j++) {
-                    val += end.charAt(j);
+                if (path.contains(value)) {
+                    String end = path.substring(path.lastIndexOf(file_Separator) + 1);
+                    for (int j = 0; j < end.length(); j++) {
+                        val += end.charAt(j);
+                    }
+                    search.add(directory + val);
                 }
-                search.add(directory + val);
             }
         }
     }

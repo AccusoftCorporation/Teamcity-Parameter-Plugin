@@ -65,6 +65,7 @@ public class AppAgent extends AgentLifeCycleAdapter {
                     new ParameterFinder(toolName, regex, location, command, file, this);
                 }
             }
+            log(s);
         }
         catch (Exception e) {
             StringBuilder sb = new StringBuilder();
