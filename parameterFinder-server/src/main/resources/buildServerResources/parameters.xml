@@ -49,6 +49,13 @@
         <regex>([\d\.]+)</regex>
     </parameter>
     <parameter>
+        <tool>AutoMake</tool>
+        <file>null</file>
+        <location>null</location>
+        <command>automake --version</command>
+        <regex>([\d\.]+)</regex>
+    </parameter>
+    <parameter>
         <tool>G++</tool>
         <file>null</file>
         <location>null</location>
