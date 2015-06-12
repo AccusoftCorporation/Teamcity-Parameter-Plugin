@@ -17,7 +17,7 @@ Purpose
 
     The regex is the regular expression to extract the version number from the command output.
 
-    The location is the base dir to search, for example, if you specify "C:\Program Files\Java", the plug-in will recursively search all subdirectories for multiple versions of Java.
+    The location is the base dir to search, for example, if you specify "C:\Program Files\Java", the plug-in will recursively search all subdirectories for multiple versions of Java. If you leave this value blank, the program assumes that you only want to run a command. This means that the program will NOT create a TC agent parameter for the Tool_Path, only for the version number of the tool. If you want to create a parameter for the path, you MUST specify the location to look.
 
     The file is the name of the file to search for.
 

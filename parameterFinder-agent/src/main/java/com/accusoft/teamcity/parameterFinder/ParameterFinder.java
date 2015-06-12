@@ -18,21 +18,30 @@ public class ParameterFinder {
     String location = null;
 
     public ParameterFinder(String tool, String regex, String s, String command, String file, AppAgent a) {
+
         this.a = a;
         this.tool = tool;
         this.file_Separator = File.separator;
         this.command = command;
-        this.location = s.replaceAll("[/\\\\]+", Matcher.quoteReplacement(System.getProperty("file.separator")));
+
+        if (s != null && s.compareTo("") != 0 && s.compareTo(" ") != 0 && s.compareTo("null") != 0)
+            this.location = s.replaceAll("[/\\\\]+", Matcher.quoteReplacement(System.getProperty("file.separator")));
         this.file = file;
 
         this.a.buildLogString("\n\t\tTOOL: " + tool + "\n");
-        findSearches(location);
-        logSearches();
 
-        if (search.size() > 0)
-            searchForTool(search, this.file, this.command, regex);
+        if (location == null || location.compareTo("null") == 0) {
+            runCommand(null, this.command, regex);
+        }
         else {
-            this.a.buildLogString("\t\tCannot find tool in location provided: " + location + "\n");
+            findSearches(location);
+            logSearches();
+
+            if (search.size() > 0)
+                searchForTool(search, this.file, this.command, regex);
+            else {
+                this.a.buildLogString("\t\tCannot find tool in location provided: " + location + "\n");
+            }
         }
 
     }
@@ -75,17 +84,23 @@ public class ParameterFinder {
     private void runCommand(File file, String command, String regex){
         try {
             String s;
-            fileFound = file.getParent();
             StringBuilder output = new StringBuilder();
-
             List<String> commands = new ArrayList<String>();
-            commands.add(file.getPath());
-            commands.add(command);
-            ProcessBuilder pb = new ProcessBuilder(commands);
-            pb.redirectErrorStream(true);
-            Process p = pb.start();
-            BufferedReader stdInput = new BufferedReader(new InputStreamReader(p.getInputStream()));
-
+            BufferedReader stdInput = null;
+            if (file != null) {
+                fileFound = file.getParent();
+                commands.add(file.getPath());
+                commands.add(command);
+                ProcessBuilder pb = new ProcessBuilder(commands);
+                pb.redirectErrorStream(true);
+                Process p = pb.start();
+                stdInput = new BufferedReader(new InputStreamReader(p.getInputStream()));
+            }
+            else {
+                Runtime rt = Runtime.getRuntime();
+                Process pr = rt.exec(command);
+                stdInput = new BufferedReader(new InputStreamReader(pr.getInputStream()));
+            }
             while ((s = stdInput.readLine()) != null) {
                 output.append(s);
             }
@@ -93,10 +108,10 @@ public class ParameterFinder {
             performRegex(regex, output);
         }
         catch (IOException e) {
-            a.buildLogString(e.getMessage());
+            a.buildLogString("\t\t" + e.getMessage() + "\n");
         }
         catch (Exception e) {
-            a.buildLogString(e.getMessage());
+            a.buildLogString("\t\t" + e.getMessage() + "\n");
         }
     }
     private void performRegex(String regex, StringBuilder output) {
@@ -105,7 +120,8 @@ public class ParameterFinder {
         if (m.find()) {
             a.buildLogString("\t\tVersion: " + m.group(1) + "\n");
             a.values.put(tool + m.group(1), m.group(1));
-            a.values.put(tool + m.group(1) + "_Path", fileFound);
+            if (fileFound.length() > 1)
+                a.values.put(tool + m.group(1) + "_Path", fileFound);
         }
         else {
             a.buildLogString("\t\tRegex: " + regex + " did not return any results from the command output. Please review the regex.\n");

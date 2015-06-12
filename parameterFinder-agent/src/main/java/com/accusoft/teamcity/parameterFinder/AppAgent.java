@@ -33,6 +33,7 @@ public class AppAgent extends AgentLifeCycleAdapter {
     public void agentInitialized(@NotNull final BuildAgent agent) {
         BuildAgentConfiguration conf = agent.getConfiguration();
 
+        s.append("??\n");
         readXMLFile(conf.getServerUrl());
         createAgentParameters(conf);
     }
@@ -44,9 +45,7 @@ public class AppAgent extends AgentLifeCycleAdapter {
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(connection.getInputStream());
-
             doc.getDocumentElement().normalize();
-
             NodeList nList = doc.getElementsByTagName("parameter");
 
             for (int i = 0; i < nList.getLength(); i++) {
@@ -68,9 +67,8 @@ public class AppAgent extends AgentLifeCycleAdapter {
             log(s);
         }
         catch (Exception e) {
-            StringBuilder sb = new StringBuilder();
-            sb.append(e.getMessage());
-            log(sb);
+            buildLogString(e.toString());
+            log(s);
         }
     }
     private void createAgentParameters(BuildAgentConfiguration conf) {

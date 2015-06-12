@@ -28,6 +28,34 @@
         <regex>Gradle ([\d\.]+)</regex>
     </parameter>
     <parameter>
+        <tool>Make</tool>
+        <file>null</file>
+        <location>null</location>
+        <command>make --version</command>
+        <regex>Make ([\d\.]+)</regex>
+    </parameter>
+    <parameter>
+        <tool>CMake</tool>
+        <file>null</file>
+        <location>null</location>
+        <command>cmake --version</command>
+        <regex>version ([\d\.]+)</regex>
+    </parameter>
+    <parameter>
+        <tool>GCC</tool>
+        <file>null</file>
+        <location>null</location>
+        <command>gcc --version</command>
+        <regex>([\d\.]+)</regex>
+    </parameter>
+    <parameter>
+        <tool>G++</tool>
+        <file>null</file>
+        <location>null</location>
+        <command>g++ --version</command>
+        <regex>([\d\.]+)</regex>
+    </parameter>
+    <parameter>
         <tool>Android</tool>
         <file>RELEASE.TXT</file>
         <location>C:\AndroidSDK</location>
