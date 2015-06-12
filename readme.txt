@@ -1,5 +1,7 @@
-Accusoft Teamcity Plugin
+#Accusoft Teamcity Plugin#
 
+
+##Purpose##
 
 This plug-in's purpose is to search for user defined tools and make agent parameters for them.
 
@@ -13,13 +15,16 @@ command: "-version"
 
 The tool is the name of the tool that is being searched for.
 
-the regex is the regular expression to extract the version number from the command output.
+The regex is the regular expression to extract the version number from the command output.
 
-the location is the base dir to search, for example, if you specify "C:\\Program Files\\Java", the plug-in will recursively search all subdirectories for multiple versions of Java.
+The location is the base dir to search, for example, if you specify "C:\\Program Files\\Java", the plug-in will recursively search all subdirectories for multiple versions of Java.
 
 The file is the name of the file to search for.
 
-the command is the command to run to find the version number.
+The command is the command to run to find the version number.
+
+
+##How to edit parameters to search for##
 
 
 To edit which tools are searched for or edit any of the above parameters, you can edit the parameters.xml file in the location:
