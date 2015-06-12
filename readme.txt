@@ -1,7 +1,7 @@
-#Accusoft Teamcity Plugin#
+#Accusoft Teamcity Plugin
 
 
-##Purpose##
+##Purpose
 
 This plug-in's purpose is to search for user defined tools and make agent parameters for them.
 
@@ -24,7 +24,7 @@ The file is the name of the file to search for.
 The command is the command to run to find the version number.
 
 
-##How to edit parameters to search for##
+##How to edit parameters to search for
 
 
 To edit which tools are searched for or edit any of the above parameters, you can edit the parameters.xml file in the location:
