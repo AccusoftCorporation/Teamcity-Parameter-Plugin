@@ -36,4 +36,5 @@ How to edit parameters
 
 
 How to build locally
+
   * Clone repository to local machine and navigate to the base directory of the project and run "mvn package". This will create a ZIP file in the "base/target/" directory that you drop into the server plugins folder.
