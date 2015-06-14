@@ -69,7 +69,5 @@
     <orderEntry type="library" scope="TEST" name="Maven: org.beanshell:bsh:2.0b4" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: com.beust:jcommander:1.27" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.yaml:snakeyaml:1.6" level="project" />
-    <orderEntry type="library" name="Maven: org.jetbrains.teamcity:server-api:9.0.1" level="project" />
-    <orderEntry type="library" name="Maven: org.springframework:spring-webmvc:4.0.5.RELEASE" level="project" />
   </component>
 </module>
