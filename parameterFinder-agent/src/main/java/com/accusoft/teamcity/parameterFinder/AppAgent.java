@@ -33,7 +33,6 @@ public class AppAgent extends AgentLifeCycleAdapter {
     public void agentInitialized(@NotNull final BuildAgent agent) {
         BuildAgentConfiguration conf = agent.getConfiguration();
 
-        s.append("??\n");
         readXMLFile(conf.getServerUrl());
         createAgentParameters(conf);
     }
