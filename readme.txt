@@ -33,3 +33,7 @@ How to edit parameters
   * You will then need to save the file and update the JAR file (this is done automatically with a tool like 7ZIP).
 
   * After this file has been modified, you need to restart the build agents that you want to pick up the edited parameters and they will create the new parameters automatically.
+
+
+How to build locally
+  * Clone repository to local machine and navigate to the base directory of the project and run "mvn package". This will create a ZIP file in the "base/target/" directory that you drop into the server plugins folder.
