@@ -11,14 +11,17 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
+import org.w3c.dom.html.HTMLCollection;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.regex.Matcher;
 
 
 public class AppAgent extends AgentLifeCycleAdapter {
@@ -47,20 +50,30 @@ public class AppAgent extends AgentLifeCycleAdapter {
             doc.getDocumentElement().normalize();
             NodeList nList = doc.getElementsByTagName("parameter");
 
+            ArrayList<String> locations = new ArrayList<String>();
+
             for (int i = 0; i < nList.getLength(); i++) {
                 Node nNode = nList.item(i);
 
                 if (nNode.getNodeType() == Node.ELEMENT_NODE) {
 
                     Element eElement = (Element) nNode;
-
                     String toolName = (eElement.getElementsByTagName("tool").item(0).getTextContent());
-                    String location = (eElement.getElementsByTagName("location").item(0).getTextContent());
+                    NodeList list = eElement.getElementsByTagName("locations");
+                    for (int j = 0; j < list.getLength(); j++) {
+                        Node node = list.item(j);
+                        Element e = (Element) node;
+                        String location = (e.getElementsByTagName("location").item(0).getTextContent());
+
+                        if (location != null && location.compareTo("") != 0 && location.compareTo(" ") != 0 && location.compareTo("null") != 0)
+                            location = location.replaceAll("[/\\\\]+", Matcher.quoteReplacement(System.getProperty("file.separator")));
+                        locations.add(location);
+                    }
                     String file = (eElement.getElementsByTagName("file").item(0).getTextContent());
                     String command = (eElement.getElementsByTagName("command").item(0).getTextContent());
                     String regex = (eElement.getElementsByTagName("regex").item(0).getTextContent());
 
-                    new ParameterFinder(toolName, regex, location, command, file, this);
+                    new ParameterFinder(toolName, regex, locations, command, file, this);
                 }
             }
             log(s);
