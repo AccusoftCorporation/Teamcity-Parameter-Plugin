@@ -23,6 +23,7 @@
     <parameter>
         <tool>Gradle</tool>
         <file>gradle.bat</file>
+        <location>C:\Program Files(x86)\Gradle</location>
         <location>C:\Program Files\Gradle</location>
         <command>-version</command>
         <regex>Gradle ([\d\.]+)</regex>

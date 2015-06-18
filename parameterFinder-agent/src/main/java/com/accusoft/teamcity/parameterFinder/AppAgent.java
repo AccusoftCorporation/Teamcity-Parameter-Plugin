@@ -7,10 +7,7 @@ import jetbrains.buildServer.agent.BuildAgentConfiguration;
 import jetbrains.buildServer.log.Loggers;
 import jetbrains.buildServer.util.EventDispatcher;
 import org.jetbrains.annotations.NotNull;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
+import org.w3c.dom.*;
 import org.w3c.dom.html.HTMLCollection;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -54,17 +51,14 @@ public class AppAgent extends AgentLifeCycleAdapter {
 
             for (int i = 0; i < nList.getLength(); i++) {
                 Node nNode = nList.item(i);
-
+                locations.clear();
                 if (nNode.getNodeType() == Node.ELEMENT_NODE) {
-
                     Element eElement = (Element) nNode;
                     String toolName = (eElement.getElementsByTagName("tool").item(0).getTextContent());
-                    NodeList list = eElement.getElementsByTagName("locations");
-                    for (int j = 0; j < list.getLength(); j++) {
-                        Node node = list.item(j);
-                        Element e = (Element) node;
-                        String location = (e.getElementsByTagName("location").item(0).getTextContent());
+                    NodeList list = eElement.getElementsByTagName("location");
 
+                    for (int j = 0; j < list.getLength(); j++) {
+                        String location = (list.item(j).getTextContent());
                         if (location != null && location.compareTo("") != 0 && location.compareTo(" ") != 0 && location.compareTo("null") != 0)
                             location = location.replaceAll("[/\\\\]+", Matcher.quoteReplacement(System.getProperty("file.separator")));
                         locations.add(location);
@@ -74,6 +68,7 @@ public class AppAgent extends AgentLifeCycleAdapter {
                     String regex = (eElement.getElementsByTagName("regex").item(0).getTextContent());
 
                     new ParameterFinder(toolName, regex, locations, command, file, this);
+
                 }
             }
             log(s);
